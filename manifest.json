@@ -1,0 +1,14 @@
+{
+  "name": "Traffic Torch AI GEO & SEO Tools for Figma",
+  "id": "",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://traffictorch.net"]
+  },
+  "description": "Instant 360° SEO, UX, GEO, AEO & AI health score analysis and audit tools inside Figma. Educational dashboard with one-click launch to Traffic Torch tools.",
+  "version": "1.0.0"
+}
