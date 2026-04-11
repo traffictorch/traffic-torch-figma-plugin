@@ -8,14 +8,10 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        ui: './index.html',      // Builds to dist/ui.html (with all React + Tailwind inlined)
-        code: './src/code.ts'    // Builds to dist/code.js
-      },
+      input: './index.html',
       output: {
-        entryFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-        chunkFileNames: '[name]-[hash].js'
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name].[ext]'
       }
     }
   }
