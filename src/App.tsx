@@ -36,10 +36,12 @@ const App: React.FC = () => {
     });
   }, []);
 
-  // Auto-fill when checkbox is checked
+  // When checkbox is toggled, override URL with Figma preview
   useEffect(() => {
     if (useFigmaPreview && figmaUrl) {
       setSiteUrl(figmaUrl);
+    } else if (!useFigmaPreview) {
+      setSiteUrl('traffictorch.net'); // reset to clean example
     }
   }, [useFigmaPreview, figmaUrl]);
 
@@ -122,7 +124,7 @@ const App: React.FC = () => {
               placeholder="traffictorch.net"
             />
             
-            <label className="flex items-center gap-2 mt-3 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 mt-3 text-sm cursor-pointer select-none">
               <input 
                 type="checkbox" 
                 checked={useFigmaPreview}
