@@ -27,8 +27,13 @@ const App: React.FC = () => {
   const [figmaUrl, setFigmaUrl] = useState('');
   const [useFigmaPreview, setUseFigmaPreview] = useState(false);
 
-  useEffect(() => {
+  // Request Figma preview URL from plugin core
+  const fetchFigmaUrl = () => {
     window.parent.postMessage({ type: 'GET_FIGMA_FILE_URL' }, '*');
+  };
+
+  useEffect(() => {
+    fetchFigmaUrl(); // ask immediately when UI loads
     window.addEventListener('message', (event) => {
       if (event.data.type === 'FIGMA_URL' && event.data.url) {
         setFigmaUrl(event.data.url);
@@ -36,12 +41,12 @@ const App: React.FC = () => {
     });
   }, []);
 
-  // When checkbox is toggled, override URL with Figma preview
+  // Checkbox logic — now forces update
   useEffect(() => {
     if (useFigmaPreview && figmaUrl) {
       setSiteUrl(figmaUrl);
     } else if (!useFigmaPreview) {
-      setSiteUrl('traffictorch.net'); // reset to clean example
+      setSiteUrl('traffictorch.net');
     }
   }, [useFigmaPreview, figmaUrl]);
 
@@ -59,7 +64,7 @@ const App: React.FC = () => {
 
   return (
     <div className="plugin-root p-6 bg-white dark:bg-[#111827] text-[#1f2937] dark:text-[#e5e7eb] min-h-full overflow-auto">
-      {/* Header with 🚥 */}
+      {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <div className="text-4xl">🚥</div>
         <div>
@@ -85,9 +90,9 @@ const App: React.FC = () => {
         ))}
       </div>
 
-      {/* All Tools Tab */}
       {activeTab === 'All Tools' && (
         <div className="space-y-6">
+          {/* Tool selector + card (kept from before) */}
           <div>
             <label className="block text-xs font-medium mb-2 text-gray-500 dark:text-gray-400">Select Tool</label>
             <select 
@@ -103,7 +108,6 @@ const App: React.FC = () => {
             </select>
           </div>
 
-          {/* Educational Tool Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-2xl">{selectedTool.emoji}</span>
@@ -123,16 +127,25 @@ const App: React.FC = () => {
               className="w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl focus:outline-none focus:border-[#10b981]"
               placeholder="traffictorch.net"
             />
-            
-            <label className="flex items-center gap-2 mt-3 text-sm cursor-pointer select-none">
-              <input 
-                type="checkbox" 
-                checked={useFigmaPreview}
-                onChange={(e) => setUseFigmaPreview(e.target.checked)}
-                className="w-4 h-4 accent-[#10b981]"
-              />
-              <span>Use current Figma file preview</span>
-            </label>
+
+            {/* Checkbox + Refresh button */}
+            <div className="flex items-center justify-between mt-3">
+              <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+                <input 
+                  type="checkbox" 
+                  checked={useFigmaPreview}
+                  onChange={(e) => setUseFigmaPreview(e.target.checked)}
+                  className="w-4 h-4 accent-[#10b981]"
+                />
+                <span>Use current Figma file preview</span>
+              </label>
+              <button 
+                onClick={fetchFigmaUrl}
+                className="text-xs text-[#10b981] hover:underline"
+              >
+                🔄 Refresh
+              </button>
+            </div>
           </div>
 
           <button 
@@ -144,7 +157,7 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Welcome Tab */}
+      {/* Welcome and Help Guides tabs unchanged from previous version */}
       {activeTab === 'Welcome' && (
         <div className="text-center py-16 space-y-6">
           <div className="text-6xl mb-4">🚥</div>
@@ -162,7 +175,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Help Guides Tab */}
       {activeTab === 'Help Guides' && (
         <div className="py-12 text-center">
           <div className="text-5xl mb-6">📚</div>
@@ -177,7 +189,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Footer */}
       <div className="text-center text-xs text-gray-400 dark:text-gray-500 mt-12">
         Made with ❤️ for better SEO & UX design
       </div>
