@@ -27,21 +27,24 @@ const App: React.FC = () => {
   const [figmaUrl, setFigmaUrl] = useState('');
   const [useFigmaPreview, setUseFigmaPreview] = useState(false);
 
-  // Request Figma preview URL from plugin core
   const fetchFigmaUrl = () => {
     window.parent.postMessage({ type: 'GET_FIGMA_FILE_URL' }, '*');
   };
 
   useEffect(() => {
-    fetchFigmaUrl(); // ask immediately when UI loads
-    window.addEventListener('message', (event) => {
+    fetchFigmaUrl(); // initial request
+
+    const handleMessage = (event: MessageEvent) => {
       if (event.data.type === 'FIGMA_URL' && event.data.url) {
         setFigmaUrl(event.data.url);
       }
-    });
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // Checkbox logic — now forces update
+  // Checkbox logic - force update when toggled
   useEffect(() => {
     if (useFigmaPreview && figmaUrl) {
       setSiteUrl(figmaUrl);
@@ -92,7 +95,6 @@ const App: React.FC = () => {
 
       {activeTab === 'All Tools' && (
         <div className="space-y-6">
-          {/* Tool selector + card (kept from before) */}
           <div>
             <label className="block text-xs font-medium mb-2 text-gray-500 dark:text-gray-400">Select Tool</label>
             <select 
@@ -108,6 +110,7 @@ const App: React.FC = () => {
             </select>
           </div>
 
+          {/* Educational Card */}
           <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-2xl">{selectedTool.emoji}</span>
@@ -128,7 +131,6 @@ const App: React.FC = () => {
               placeholder="traffictorch.net"
             />
 
-            {/* Checkbox + Refresh button */}
             <div className="flex items-center justify-between mt-3">
               <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
                 <input 
@@ -141,7 +143,7 @@ const App: React.FC = () => {
               </label>
               <button 
                 onClick={fetchFigmaUrl}
-                className="text-xs text-[#10b981] hover:underline"
+                className="text-xs text-[#10b981] hover:underline flex items-center gap-1"
               >
                 🔄 Refresh
               </button>
@@ -157,7 +159,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Welcome and Help Guides tabs unchanged from previous version */}
       {activeTab === 'Welcome' && (
         <div className="text-center py-16 space-y-6">
           <div className="text-6xl mb-4">🚥</div>

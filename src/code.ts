@@ -4,7 +4,7 @@ figma.showUI(__html__, {
   themeColors: true
 });
 
-// Send Figma preview URL immediately when plugin opens
+// Send Figma preview URL immediately and on request
 function sendFigmaUrl() {
   const fileKey = figma.fileKey;
   const fileUrl = fileKey
@@ -13,11 +13,11 @@ function sendFigmaUrl() {
   figma.ui.postMessage({ type: 'FIGMA_URL', url: fileUrl });
 }
 
-sendFigmaUrl();   // send on load
+sendFigmaUrl();  // send on plugin open
 
 figma.ui.onmessage = function(msg) {
   if (msg.type === 'GET_FIGMA_FILE_URL') {
-    sendFigmaUrl();   // allow manual refresh from UI
+    sendFigmaUrl();
   }
 
   if (msg.type === 'LAUNCH_TOOL') {
