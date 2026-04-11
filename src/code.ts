@@ -1,6 +1,7 @@
 figma.showUI(__html__, {
   width: 420,
   height: 680,
+  position: { x: -1, y: -1 },   // -1 tells Figma to use right sidebar in 2026
   themeColors: true
 });
 
