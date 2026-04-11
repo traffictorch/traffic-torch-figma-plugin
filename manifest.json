@@ -1,6 +1,5 @@
 {
   "name": "Traffic Torch AI GEO & SEO Tools for Figma",
-  "id": "",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
@@ -9,6 +8,5 @@
   "networkAccess": {
     "allowedDomains": ["https://traffictorch.net"]
   },
-  "version": "1.0.0",
   "icon": "public/icon.svg"
 }
