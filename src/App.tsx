@@ -49,11 +49,11 @@ const App: React.FC = () => {
 
   return (
     <div className="plugin-root p-6 bg-white dark:bg-[#111827] text-[#1f2937] dark:text-[#e5e7eb] min-h-full overflow-auto">
-      {/* Header */}
+      {/* Header with 🚥 */}
       <div className="flex items-center gap-3 mb-8">
-        <div className="text-4xl">🔦</div>
+        <div className="text-4xl">🚥</div>
         <div>
-          <h1 className="text-2xl font-semibold">Traffic Torch</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Traffic Torch</h1>
           <p className="text-sm opacity-70">AI GEO & SEO Tools for Figma</p>
         </div>
       </div>
@@ -112,7 +112,7 @@ const App: React.FC = () => {
 
           <button 
             onClick={launchTool}
-            className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-semibold py-4 rounded-3xl flex items-center justify-center gap-3 transition-all text-lg shadow-sm"
+            className="w-full bg-[#10b981] hover:bg-[#059669] text-white font-semibold py-4 rounded-3xl flex items-center justify-center gap-3 transition-all text-lg shadow-sm active:scale-[0.985]"
           >
             🚀 Launch Tool with URL →
           </button>
@@ -122,15 +122,15 @@ const App: React.FC = () => {
       {/* Welcome Tab */}
       {activeTab === 'Welcome' && (
         <div className="text-center py-16 space-y-6">
-          <div className="text-6xl mb-4">🔦</div>
+          <div className="text-6xl mb-4">🚥</div>
           <h2 className="text-2xl font-semibold">Welcome to Traffic Torch</h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-sm mx-auto leading-relaxed">
-            Get instant 360° SEO, UX, GEO and AI health scores directly inside Figma.<br />
+            Instant 360° SEO, UX, GEO and AI health analysis directly inside Figma.<br />
             Educational reports • Competitive gaps • AI-generated fixes.
           </p>
           <button 
             onClick={() => setActiveTab('All Tools')}
-            className="bg-[#10b981] text-white px-10 py-3.5 rounded-3xl font-medium mt-6"
+            className="bg-[#10b981] text-white px-10 py-3.5 rounded-3xl font-medium mt-6 hover:bg-[#059669]"
           >
             Start Your Analysis →
           </button>
@@ -141,7 +141,7 @@ const App: React.FC = () => {
       {activeTab === 'Help Guides' && (
         <div className="py-12 text-center">
           <div className="text-5xl mb-6">📚</div>
-          <p className="mb-8 text-gray-600 dark:text-gray-400">Educational guides and best practices</p>
+          <p className="mb-8 text-gray-600 dark:text-gray-400">Educational guides and best practices from Traffic Torch</p>
           <a 
             href="https://traffictorch.net/ai-ux-seo-help-guides/" 
             target="_blank"
