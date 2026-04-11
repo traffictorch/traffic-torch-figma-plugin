@@ -6,55 +6,76 @@
   <title>Traffic Torch</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-    body { margin:0; padding:20px; font-family: 'Inter', system-ui, sans-serif; background: #fff; color: #1f2937; }
-    @media (prefers-color-scheme: dark) {
-      body { background: #111827; color: #e5e7eb; }
-    }
+    body { margin:0; padding:20px; font-family:'Inter',system-ui,sans-serif; background:#fff; color:#1f2937; line-height:1.5; }
+    @media (prefers-color-scheme: dark) { body { background:#111827; color:#e5e7eb; } }
     .header { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
-    .torch { font-size:32px; }
     h1 { margin:0; font-size:24px; font-weight:600; }
-    .tab-bar { display:flex; border-bottom:2px solid #e5e7eb; margin-bottom:20px; }
-    .tab { padding:8px 16px; font-weight:500; border-bottom:3px solid transparent; }
-    .tab.active { border-bottom-color:#10b981; color:#10b981; }
-    button { background:#10b981; color:white; border:none; padding:16px; border-radius:9999px; font-size:16px; font-weight:600; width:100%; margin-top:20px; cursor:pointer; }
+    button { background:#10b981; color:white; border:none; padding:16px; border-radius:9999px; font-size:16px; font-weight:600; width:100%; margin:12px 0; cursor:pointer; }
     button:hover { background:#059669; }
-    select, input { width:100%; padding:14px; border-radius:9999px; border:1px solid #d1d5db; margin-bottom:12px; font-size:16px; }
-    .dark body { background:#111827; color:#e5e7eb; }
+    button.secondary { background:#e5e7eb; color:#1f2937; }
+    @media (prefers-color-scheme: dark) { button.secondary { background:#374151; color:#e5e7eb; } }
+    input { width:100%; padding:14px; border-radius:9999px; border:1px solid #d1d5db; font-size:16px; margin-bottom:12px; }
+    .dark input { background:#1f2937; border-color:#374151; color:#e5e7eb; }
+    .tooltip { background:#fef3c7; color:#92400e; padding:12px; border-radius:12px; font-size:13px; margin:12px 0; display:none; }
+    .dark .tooltip { background:#451a03; color:#fcd34d; }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="torch">🔦</div>
+    <div style="font-size:32px">🚥</div>
     <div>
       <h1>Traffic Torch</h1>
       <p style="margin:0; font-size:13px; opacity:0.7;">AI GEO & SEO Tools for Figma</p>
     </div>
   </div>
 
-  <div class="tab-bar">
-    <div class="tab active">All Tools</div>
-    <div class="tab">Welcome</div>
-    <div class="tab">Help</div>
+  <div class="card" style="background:#f8fafc; padding:16px; border-radius:16px; margin:16px 0; border:1px solid #e2e8f0;">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+      <span style="font-size:24px">⚜️</span>
+      <strong>Topical Authority</strong>
+    </div>
+    <p style="font-size:13px; opacity:0.8;">Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.</p>
   </div>
 
-  <select id="tool">
-    <option value="https://traffictorch.net/local-seo-tool/">📍 Local SEO Tool</option>
-    <option value="https://traffictorch.net/seo-intent-tool/">🎯 SEO Intent Tool</option>
-    <option value="https://traffictorch.net/topical-authority-tool/">🧬 Topical Authority Tool</option>
-  </select>
+  <label style="display:block; font-size:13px; margin-bottom:6px; font-weight:500;">Site URL</label>
+  <input id="urlInput" type="url" placeholder="https://your-site.com or Figma preview link" value="">
 
-  <input id="url" type="text" placeholder="https://your-site.com" value="https://traffictorch.net">
+  <div id="tooltip" class="tooltip">
+    💡 Click the blue <strong>Share</strong> button (top right) → "Copy link" → paste here
+  </div>
 
-  <button onclick="launch()">🚀 Launch Tool with URL →</button>
+  <button onclick="getPreviewUrl()" class="secondary">🔄 Get Figma Preview URL</button>
+  <button onclick="launchTool()">🚀 Launch Tool with URL →</button>
 
   <script>
-    function launch() {
-      const tool = document.getElementById('tool').value;
-      const url = document.getElementById('url').value;
-      const fullUrl = url ? tool + '?url=' + encodeURIComponent(url) : tool;
-      window.parent.postMessage({ type: 'LAUNCH_TOOL', toolBase: tool, siteUrl: url }, '*');
+    function getPreviewUrl() {
+      window.parent.postMessage({ type: 'GET_FIGMA_FILE_URL' }, '*');
+    }
+
+    window.addEventListener('message', function(event) {
+      if (event.data.type === 'FIGMA_URL' && event.data.url) {
+        document.getElementById('urlInput').value = event.data.url;
+        document.getElementById('tooltip').style.display = 'none';
+      }
+    });
+
+    function launchTool() {
+      let url = document.getElementById('urlInput').value.trim();
+      
+      if (!url) {
+        document.getElementById('tooltip').style.display = 'block';
+        return;   // do nothing, show helpful tooltip
+      }
+
+      const toolBase = "https://traffictorch.net/topical-authority-audit-tool/"; // you can change default tool here
+      const fullUrl = toolBase + '?url=' + encodeURIComponent(url);
+      
+      window.parent.postMessage({ type: 'LAUNCH_TOOL', toolBase: toolBase, siteUrl: url }, '*');
       window.open(fullUrl, '_blank');
     }
+
+    // Auto request preview URL when plugin opens
+    window.onload = getPreviewUrl;
   </script>
 </body>
 </html>
