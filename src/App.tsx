@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 const tools = [
-  { emoji: "⚜️", name: "Topical Authority", path: "https://traffictorch.net/topical-authority-audit-tool/" },
-  { emoji: "🧬", name: "Entity Extractor", path: "https://traffictorch.net/seo-entity-extractor-tool/" },
-  { emoji: "🎯", name: "SEO Intent", path: "https://traffictorch.net/seo-intent-tool/" },
-  { emoji: "📍", name: "Local SEO", path: "https://traffictorch.net/local-seo-tool/" },
-  { emoji: "🛒", name: "Product SEO", path: "https://traffictorch.net/product-seo-tool/" },
-  { emoji: "⚙️", name: "Schema Generator", path: "https://traffictorch.net/schema-generator/" },
-  { emoji: "🔍", name: "AI Search Optimization", path: "https://traffictorch.net/ai-search-optimization-tool/" },
-  { emoji: "🎙️", name: "AI Voice Search", path: "https://traffictorch.net/ai-voice-search-tool/" },
-  { emoji: "🤖", name: "AI Content", path: "https://traffictorch.net/ai-audit-tool/" },
-  { emoji: "⚡", name: "Quit Risk", path: "https://traffictorch.net/quit-risk-tool/" },
-  { emoji: "⚖️", name: "SEO + UX Audit", path: "https://traffictorch.net/" },
-  { emoji: "🔑", name: "Keyword Research", path: "https://traffictorch.net/keyword-research-tool/" },
-  { emoji: "📝", name: "Keyword Placement", path: "https://traffictorch.net/keyword-tool/" },
-  { emoji: "🆚", name: "Competition (VS)", path: "https://traffictorch.net/keyword-vs-tool/" }
+  { emoji: "⚜️", name: "Topical Authority", path: "https://traffictorch.net/topical-authority-audit-tool/", desc: "Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance." },
+  { emoji: "🧬", name: "Entity Extractor", path: "https://traffictorch.net/seo-entity-extractor-tool/", desc: "Extracts named entities and helps optimize for modern entity-based search engines." },
+  { emoji: "🎯", name: "SEO Intent", path: "https://traffictorch.net/seo-intent-tool/", desc: "Classifies search intent behind keywords and suggests better content alignment." },
+  { emoji: "📍", name: "Local SEO", path: "https://traffictorch.net/local-seo-tool/", desc: "Evaluates local pack visibility, citations, and Google Business Profile health." },
+  { emoji: "🛒", name: "Product SEO", path: "https://traffictorch.net/product-seo-tool/", desc: "Optimizes product pages for e-commerce search visibility and conversions." },
+  { emoji: "⚙️", name: "Schema Generator", path: "https://traffictorch.net/schema-generator/", desc: "Generates structured data markup to improve rich results in search engines." },
+  { emoji: "🔍", name: "AI Search Optimization", path: "https://traffictorch.net/ai-search-optimization-tool/", desc: "Prepares content for AI Overviews and generative search results." },
+  { emoji: "🎙️", name: "AI Voice Search", path: "https://traffictorch.net/ai-voice-search-tool/", desc: "Optimizes for conversational and voice-based search queries." },
+  { emoji: "🤖", name: "AI Content", path: "https://traffictorch.net/ai-audit-tool/", desc: "Audits AI-generated content for quality, originality, and SEO value." },
+  { emoji: "⚡", name: "Quit Risk", path: "https://traffictorch.net/quit-risk-tool/", desc: "Predicts pages at risk of losing rankings and suggests recovery actions." },
+  { emoji: "⚖️", name: "SEO + UX Audit", path: "https://traffictorch.net/", desc: "Combined SEO and user experience health score with actionable fixes." },
+  { emoji: "🔑", name: "Keyword Research", path: "https://traffictorch.net/keyword-research-tool/", desc: "Discovers high-potential keywords with volume, difficulty, and opportunity scores." },
+  { emoji: "📝", name: "Keyword Placement", path: "https://traffictorch.net/keyword-tool/", desc: "Analyzes optimal keyword placement across page elements." },
+  { emoji: "🆚", name: "Competition (VS)", path: "https://traffictorch.net/keyword-vs-tool/", desc: "Compares your site against competitors on keyword and content gaps." }
 ];
 
 const tabs = ['Welcome', 'All Tools', 'Help Guides'];
@@ -23,7 +23,7 @@ const tabs = ['Welcome', 'All Tools', 'Help Guides'];
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'Welcome' | 'All Tools' | 'Help Guides'>('All Tools');
   const [selectedTool, setSelectedTool] = useState(tools[0]);
-  const [siteUrl, setSiteUrl] = useState('https://traffictorch.net');
+  const [siteUrl, setSiteUrl] = useState('traffictorch.net');
   const [figmaUrl, setFigmaUrl] = useState('');
 
   useEffect(() => {
@@ -93,6 +93,17 @@ const App: React.FC = () => {
             </select>
           </div>
 
+          {/* Educational Tool Card */}
+          <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-2xl">{selectedTool.emoji}</span>
+              <h3 className="font-semibold">{selectedTool.name}</h3>
+            </div>
+            <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              {selectedTool.desc}
+            </p>
+          </div>
+
           <div>
             <label className="block text-xs font-medium mb-2 text-gray-500 dark:text-gray-400">Site URL</label>
             <input
@@ -100,10 +111,10 @@ const App: React.FC = () => {
               value={siteUrl}
               onChange={(e) => setSiteUrl(e.target.value)}
               className="w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl focus:outline-none focus:border-[#10b981]"
-              placeholder="https://your-site.com"
+              placeholder="traffictorch.net"
             />
             <button 
-              onClick={() => setSiteUrl(figmaUrl || 'https://traffictorch.net')}
+              onClick={() => setSiteUrl(figmaUrl || 'traffictorch.net')}
               className="text-xs mt-2 text-[#10b981] hover:underline block"
             >
               📋 Use current Figma file preview
