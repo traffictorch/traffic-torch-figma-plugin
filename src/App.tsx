@@ -25,6 +25,7 @@ const App: React.FC = () => {
   const [selectedTool, setSelectedTool] = useState(tools[0]);
   const [siteUrl, setSiteUrl] = useState('traffictorch.net');
   const [figmaUrl, setFigmaUrl] = useState('');
+  const [useFigmaPreview, setUseFigmaPreview] = useState(false);
 
   useEffect(() => {
     window.parent.postMessage({ type: 'GET_FIGMA_FILE_URL' }, '*');
@@ -34,6 +35,13 @@ const App: React.FC = () => {
       }
     });
   }, []);
+
+  // Auto-fill when checkbox is checked
+  useEffect(() => {
+    if (useFigmaPreview && figmaUrl) {
+      setSiteUrl(figmaUrl);
+    }
+  }, [useFigmaPreview, figmaUrl]);
 
   const launchTool = () => {
     const fullUrl = siteUrl 
@@ -113,12 +121,16 @@ const App: React.FC = () => {
               className="w-full p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl focus:outline-none focus:border-[#10b981]"
               placeholder="traffictorch.net"
             />
-            <button 
-              onClick={() => setSiteUrl(figmaUrl || 'traffictorch.net')}
-              className="text-xs mt-2 text-[#10b981] hover:underline block"
-            >
-              📋 Use current Figma file preview
-            </button>
+            
+            <label className="flex items-center gap-2 mt-3 text-sm cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={useFigmaPreview}
+                onChange={(e) => setUseFigmaPreview(e.target.checked)}
+                className="w-4 h-4 accent-[#10b981]"
+              />
+              <span>Use current Figma file preview</span>
+            </label>
           </div>
 
           <button 
