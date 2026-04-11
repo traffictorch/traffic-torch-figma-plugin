@@ -9,6 +9,7 @@
   "networkAccess": {
     "allowedDomains": ["https://traffictorch.net"]
   },
-  "description": "Instant 360° SEO, UX, GEO, AEO & AI health score analysis and audit tools inside Figma. Educational dashboard with one-click launch to Traffic Torch tools.",
-  "version": "1.0.0"
+  "description": "Instant 360° SEO, UX, GEO, AEO & AI health score analysis and audit tools inside Figma. Educational dashboard with one-click launch.",
+  "version": "1.0.0",
+  "icon": "public/icon.svg"
 }

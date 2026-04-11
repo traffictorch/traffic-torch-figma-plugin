@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# Traffic Torch AI GEO & SEO Tools for Figma
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Instant 360° SEO • UX • GEO • AEO • AI health score analysis directly inside Figma.**
 
-Currently, two official plugins are available:
+Educational, privacy-first plugin that brings the full power of [traffictorch.net](https://traffictorch.net) into your design workflow.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Features
+- One-click launch to 14+ Traffic Torch tools with your site URL pre-filled
+- Auto-detect current Figma file preview URL
+- Clean tabbed educational dashboard (Welcome, All Tools, Help Guides…)
+- Full dark/light mode support (gray-800 / dark-gray-200 text + #10b981 accent)
+- Mobile-friendly sidebar UI
+- Built with latest 2026 Figma Plugin API, React, TypeScript, Vite + Tailwind v4
 
-## React Compiler
+### Tools Included (exact match to traffictorch.net)
+- 🧬 Topical Authority Tool
+- 🧬 SEO Entity Tool
+- 🎯 SEO Intent Tool
+- 📍 Local SEO Tool
+- 🛒 Product SEO Tool
+- ⚡ Quit Risk Tool
+- 🔍 GEO Audit / AI Search Tool
+- 🤖 AI Content Tool
+- 🎙️ AI Voice Search Tool
+- ⚙️ Schema Generator
+- 📝 Keyword Research & Placement
+- 🆚 Competitive Gap (VS) Tool
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### How to Install & Run
+1. Clone this repo
+2. `npm install && npm run build`
+3. In Figma → Plugins → Development → Import plugin from manifest → select `manifest.json`
+4. Run "Traffic Torch AI GEO & SEO Tools for Figma"
 
-## Expanding the ESLint configuration
+Made with ❤️ — educational, non-spammy, and fully consistent with the WordPress & VS Code versions of Traffic Torch.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Keywords: Figma SEO plugin, Figma UX audit tool, Figma GEO tool, Figma AEO plugin, Traffic Torch Figma, AI SEO tools Figma, health score audit Figma
