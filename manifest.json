@@ -7,6 +7,5 @@
   "documentAccess": "dynamic-page",
   "networkAccess": {
     "allowedDomains": ["https://traffictorch.net"]
-  },
-  "icon": "icon.svg"
+  }
 }
