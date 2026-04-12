@@ -10,6 +10,6 @@ figma.ui.onmessage = function(msg) {
     const siteUrl = msg.siteUrl || 'yoursite.com';
     const fullUrl = toolBase + '?url=' + encodeURIComponent(siteUrl);
     figma.openExternal(fullUrl);
-    figma.notify('🚀 Opening Traffic Torch tool…', { timeout: 2000 });
+    figma.notify('🚀 Opening Traffic Torch tool… Educational & instant!', { timeout: 2000 });
   }
 };

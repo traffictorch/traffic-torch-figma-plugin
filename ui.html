@@ -8,17 +8,19 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
     body { margin:0; padding:20px; font-family:'Inter',system-ui,sans-serif; background:#fff; color:#1f2937; line-height:1.5; }
     @media (prefers-color-scheme: dark) { body { background:#111827; color:#e5e7eb; } }
-    .header { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+    .header { display:flex; align-items:center; gap:12px; margin-bottom:28px; }
     h1 { margin:0; font-size:24px; font-weight:600; }
-    .tab-bar { display:flex; border-bottom:2px solid #e5e7eb; margin-bottom:20px; }
-    .tab { padding:8px 16px; font-weight:500; border-bottom:3px solid transparent; cursor:pointer; }
+    .tab-bar { display:flex; border-bottom:2px solid #e5e7eb; margin-bottom:24px; }
+    .tab { padding:10px 16px; font-weight:500; border-bottom:3px solid transparent; cursor:pointer; flex:1; text-align:center; }
     .tab.active { border-bottom-color:#10b981; color:#10b981; }
-    select, input { width:100%; padding:14px; border-radius:9999px; border:1px solid #d1d5db; margin-bottom:12px; font-size:16px; }
-    button { background:#10b981; color:white; border:none; padding:16px; border-radius:9999px; font-size:16px; font-weight:600; width:100%; margin:12px 0; cursor:pointer; }
+    select, input { width:100%; padding:14px; border-radius:9999px; border:1px solid #d1d5db; margin-bottom:16px; font-size:16px; }
+    button { background:#10b981; color:white; border:none; padding:16px; border-radius:9999px; font-size:16px; font-weight:600; width:100%; margin:12px 0; cursor:pointer; transition:all 0.2s; }
     button:hover { background:#059669; }
-    .card { background:#f8fafc; padding:16px; border-radius:16px; margin:16px 0; border:1px solid #e2e8f0; }
+    button:disabled { background:#9ca3af; cursor:not-allowed; }
+    .card { background:#f8fafc; padding:18px; border-radius:20px; margin:20px 0; border:1px solid #e2e8f0; }
     .dark .card { background:#1f2937; border-color:#374151; }
-    .dark body { background:#111827; color:#e5e7eb; }
+    .tooltip { background:#fef3c7; color:#92400e; padding:14px; border-radius:12px; font-size:13px; margin:12px 0; display:none; }
+    .dark .tooltip { background:#451a03; color:#fcd34d; }
   </style>
 </head>
 <body>
@@ -31,13 +33,13 @@
   </div>
 
   <div class="tab-bar">
-    <div class="tab" id="tab-welcome" onclick="switchTab(0)">Welcome</div>
-    <div class="tab active" id="tab-tools" onclick="switchTab(1)">All Tools</div>
-    <div class="tab" id="tab-help" onclick="switchTab(2)">Help Guides</div>
+    <div class="tab active" onclick="switchTab(0)">All Tools</div>
+    <div class="tab" onclick="switchTab(1)">Welcome</div>
+    <div class="tab" onclick="switchTab(2)">Help Guides</div>
   </div>
 
   <!-- All Tools Tab -->
-  <div id="panel-tools">
+  <div id="panel-0">
     <label style="display:block; font-size:13px; margin-bottom:6px; font-weight:500;">Select Tool</label>
     <select id="toolSelect" onchange="updateCard()">
       <option value="https://traffictorch.net/topical-authority-audit-tool/">⚜️ Topical Authority</option>
@@ -67,46 +69,40 @@
     <label style="display:block; font-size:13px; margin:16px 0 6px; font-weight:500;">Site URL</label>
     <input id="urlInput" type="text" value="yoursite.com" placeholder="yoursite.com">
 
-    <button onclick="launchTool()">🚀 Launch Tool with URL →</button>
+    <button onclick="launchTool()" id="launchBtn">🚀 Launch Tool with URL →</button>
   </div>
 
   <!-- Welcome Tab -->
-  <div id="panel-welcome" style="display:none; text-align:center; py-16">
-    <div style="font-size:60px; margin-bottom:16px">🚥</div>
+  <div id="panel-1" style="display:none; text-align:center; padding:40px 20px;">
+    <div style="font-size:64px; margin-bottom:20px">🚥</div>
     <h2 style="font-size:22px; margin-bottom:12px;">Welcome to Traffic Torch</h2>
     <p style="max-width:280px; margin:0 auto; font-size:14px; opacity:0.8;">Instant 360° SEO, UX, GEO and AI health analysis for your live websites.</p>
-    <button onclick="switchTab(1)" style="margin-top:24px;">Start Analyzing →</button>
+    <button onclick="switchTab(0)" style="margin-top:32px;">Start Analyzing →</button>
   </div>
 
   <!-- Help Guides Tab -->
-  <div id="panel-help" style="display:none; text-align:center; py-12">
-    <div style="font-size:48px; margin-bottom:16px">📚</div>
+  <div id="panel-2" style="display:none; text-align:center; padding:40px 20px;">
+    <div style="font-size:48px; margin-bottom:20px">📚</div>
     <p style="margin-bottom:24px; opacity:0.8;">Educational guides and best practices from Traffic Torch</p>
-    <a href="https://traffictorch.net/ai-ux-seo-help-guides/" target="_blank" style="background:#e5e7eb; color:#1f2937; padding:14px 32px; border-radius:9999px; text-decoration:none; font-weight:500;">Open Help Guides →</a>
+    <a href="https://traffictorch.net/ai-ux-seo-help-guides/" target="_blank" style="background:#e5e7eb; color:#1f2937; padding:14px 32px; border-radius:9999px; text-decoration:none; font-weight:500; display:inline-block;">Open Help Guides →</a>
   </div>
 
   <script>
-    let currentTab = 1;
-
     function switchTab(tab) {
-      currentTab = tab;
-      document.getElementById('panel-tools').style.display = tab === 1 ? 'block' : 'none';
-      document.getElementById('panel-welcome').style.display = tab === 0 ? 'block' : 'none';
-      document.getElementById('panel-help').style.display = tab === 2 ? 'block' : 'none';
+      document.getElementById('panel-0').style.display = tab === 0 ? 'block' : 'none';
+      document.getElementById('panel-1').style.display = tab === 1 ? 'block' : 'none';
+      document.getElementById('panel-2').style.display = tab === 2 ? 'block' : 'none';
 
-      document.querySelectorAll('.tab').forEach((t, i) => {
-        t.classList.toggle('active', i === tab);
-      });
+      document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
     }
 
     function updateCard() {
       const select = document.getElementById('toolSelect');
-      const selected = select.options[select.selectedIndex];
-      document.getElementById('cardEmoji').textContent = selected.textContent.split(' ')[0];
-      document.getElementById('cardName').textContent = selected.textContent.split(' ').slice(1).join(' ');
+      const option = select.options[select.selectedIndex];
+      document.getElementById('cardEmoji').textContent = option.textContent.split(' ')[0];
+      document.getElementById('cardName').textContent = option.textContent.split(' ').slice(1).join(' ');
       
-      // Simple description mapping (expand if needed)
-      const descs = {
+      const descMap = {
         "Topical Authority": "Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.",
         "Entity Extractor": "Extracts named entities and helps optimize for modern entity-based search engines.",
         "SEO Intent": "Classifies search intent behind keywords and suggests better content alignment.",
@@ -122,18 +118,29 @@
         "Keyword Placement": "Analyzes optimal keyword placement across page elements.",
         "Competition (VS)": "Compares your site against competitors on keyword and content gaps."
       };
-      document.getElementById('cardDesc').textContent = descs[selected.textContent.split(' ').slice(1).join(' ')] || "Educational deep-dive tool from Traffic Torch.";
+      document.getElementById('cardDesc').textContent = descMap[option.textContent.split(' ').slice(1).join(' ')] || "Educational deep-dive tool from Traffic Torch.";
     }
 
     function launchTool() {
+      const btn = document.getElementById('launchBtn');
+      const originalText = btn.textContent;
+      btn.textContent = 'Launching...';
+      btn.disabled = true;
+
       let url = document.getElementById('urlInput').value.trim();
       if (!url) url = "yoursite.com";
 
       const toolBase = document.getElementById('toolSelect').value;
       const fullUrl = toolBase + '?url=' + encodeURIComponent(url);
-      
+
       window.parent.postMessage({ type: 'LAUNCH_TOOL', toolBase: toolBase, siteUrl: url }, '*');
       window.open(fullUrl, '_blank');
+
+      // Reset button after a short delay
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }, 1500);
     }
 
     // Initialize
