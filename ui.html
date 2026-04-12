@@ -10,11 +10,15 @@
     @media (prefers-color-scheme: dark) { body { background:#111827; color:#e5e7eb; } }
     .header { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
     h1 { margin:0; font-size:24px; font-weight:600; }
+    .tab-bar { display:flex; border-bottom:2px solid #e5e7eb; margin-bottom:20px; }
+    .tab { padding:8px 16px; font-weight:500; border-bottom:3px solid transparent; cursor:pointer; }
+    .tab.active { border-bottom-color:#10b981; color:#10b981; }
     select, input { width:100%; padding:14px; border-radius:9999px; border:1px solid #d1d5db; margin-bottom:12px; font-size:16px; }
     button { background:#10b981; color:white; border:none; padding:16px; border-radius:9999px; font-size:16px; font-weight:600; width:100%; margin:12px 0; cursor:pointer; }
     button:hover { background:#059669; }
     .card { background:#f8fafc; padding:16px; border-radius:16px; margin:16px 0; border:1px solid #e2e8f0; }
     .dark .card { background:#1f2937; border-color:#374151; }
+    .dark body { background:#111827; color:#e5e7eb; }
   </style>
 </head>
 <body>
@@ -26,38 +30,101 @@
     </div>
   </div>
 
-  <div class="card">
-    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-      <span style="font-size:24px">⚜️</span>
-      <strong>Topical Authority</strong>
-    </div>
-    <p style="font-size:13px; opacity:0.8;">Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.</p>
+  <div class="tab-bar">
+    <div class="tab" id="tab-welcome" onclick="switchTab(0)">Welcome</div>
+    <div class="tab active" id="tab-tools" onclick="switchTab(1)">All Tools</div>
+    <div class="tab" id="tab-help" onclick="switchTab(2)">Help Guides</div>
   </div>
 
-  <label style="display:block; font-size:13px; margin-bottom:6px; font-weight:500;">Select Tool</label>
-  <select id="toolSelect">
-    <option value="https://traffictorch.net/topical-authority-audit-tool/">⚜️ Topical Authority</option>
-    <option value="https://traffictorch.net/seo-entity-extractor-tool/">🧬 Entity Extractor</option>
-    <option value="https://traffictorch.net/seo-intent-tool/">🎯 SEO Intent</option>
-    <option value="https://traffictorch.net/local-seo-tool/">📍 Local SEO</option>
-    <option value="https://traffictorch.net/product-seo-tool/">🛒 Product SEO</option>
-    <option value="https://traffictorch.net/schema-generator/">⚙️ Schema Generator</option>
-    <option value="https://traffictorch.net/ai-search-optimization-tool/">🔍 AI Search Optimization</option>
-    <option value="https://traffictorch.net/ai-voice-search-tool/">🎙️ AI Voice Search</option>
-    <option value="https://traffictorch.net/ai-audit-tool/">🤖 AI Content</option>
-    <option value="https://traffictorch.net/quit-risk-tool/">⚡ Quit Risk</option>
-    <option value="https://traffictorch.net/">⚖️ SEO + UX Audit</option>
-    <option value="https://traffictorch.net/keyword-research-tool/">🔑 Keyword Research</option>
-    <option value="https://traffictorch.net/keyword-tool/">📝 Keyword Placement</option>
-    <option value="https://traffictorch.net/keyword-vs-tool/">🆚 Competition (VS)</option>
-  </select>
+  <!-- All Tools Tab -->
+  <div id="panel-tools">
+    <label style="display:block; font-size:13px; margin-bottom:6px; font-weight:500;">Select Tool</label>
+    <select id="toolSelect" onchange="updateCard()">
+      <option value="https://traffictorch.net/topical-authority-audit-tool/">⚜️ Topical Authority</option>
+      <option value="https://traffictorch.net/seo-entity-extractor-tool/">🧬 Entity Extractor</option>
+      <option value="https://traffictorch.net/seo-intent-tool/">🎯 SEO Intent</option>
+      <option value="https://traffictorch.net/local-seo-tool/">📍 Local SEO</option>
+      <option value="https://traffictorch.net/product-seo-tool/">🛒 Product SEO</option>
+      <option value="https://traffictorch.net/schema-generator/">⚙️ Schema Generator</option>
+      <option value="https://traffictorch.net/ai-search-optimization-tool/">🔍 AI Search Optimization</option>
+      <option value="https://traffictorch.net/ai-voice-search-tool/">🎙️ AI Voice Search</option>
+      <option value="https://traffictorch.net/ai-audit-tool/">🤖 AI Content</option>
+      <option value="https://traffictorch.net/quit-risk-tool/">⚡ Quit Risk</option>
+      <option value="https://traffictorch.net/">⚖️ SEO + UX Audit</option>
+      <option value="https://traffictorch.net/keyword-research-tool/">🔑 Keyword Research</option>
+      <option value="https://traffictorch.net/keyword-tool/">📝 Keyword Placement</option>
+      <option value="https://traffictorch.net/keyword-vs-tool/">🆚 Competition (VS)</option>
+    </select>
 
-  <label style="display:block; font-size:13px; margin:16px 0 6px; font-weight:500;">Site URL</label>
-  <input id="urlInput" type="text" value="yoursite.com" placeholder="yoursite.com">
+    <div id="toolCard" class="card">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span id="cardEmoji" style="font-size:24px">⚜️</span>
+        <strong id="cardName">Topical Authority</strong>
+      </div>
+      <p id="cardDesc" style="font-size:13px; opacity:0.8;">Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.</p>
+    </div>
 
-  <button onclick="launchTool()">🚀 Launch Tool with URL →</button>
+    <label style="display:block; font-size:13px; margin:16px 0 6px; font-weight:500;">Site URL</label>
+    <input id="urlInput" type="text" value="yoursite.com" placeholder="yoursite.com">
+
+    <button onclick="launchTool()">🚀 Launch Tool with URL →</button>
+  </div>
+
+  <!-- Welcome Tab -->
+  <div id="panel-welcome" style="display:none; text-align:center; py-16">
+    <div style="font-size:60px; margin-bottom:16px">🚥</div>
+    <h2 style="font-size:22px; margin-bottom:12px;">Welcome to Traffic Torch</h2>
+    <p style="max-width:280px; margin:0 auto; font-size:14px; opacity:0.8;">Instant 360° SEO, UX, GEO and AI health analysis for your live websites.</p>
+    <button onclick="switchTab(1)" style="margin-top:24px;">Start Analyzing →</button>
+  </div>
+
+  <!-- Help Guides Tab -->
+  <div id="panel-help" style="display:none; text-align:center; py-12">
+    <div style="font-size:48px; margin-bottom:16px">📚</div>
+    <p style="margin-bottom:24px; opacity:0.8;">Educational guides and best practices from Traffic Torch</p>
+    <a href="https://traffictorch.net/ai-ux-seo-help-guides/" target="_blank" style="background:#e5e7eb; color:#1f2937; padding:14px 32px; border-radius:9999px; text-decoration:none; font-weight:500;">Open Help Guides →</a>
+  </div>
 
   <script>
+    let currentTab = 1;
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('panel-tools').style.display = tab === 1 ? 'block' : 'none';
+      document.getElementById('panel-welcome').style.display = tab === 0 ? 'block' : 'none';
+      document.getElementById('panel-help').style.display = tab === 2 ? 'block' : 'none';
+
+      document.querySelectorAll('.tab').forEach((t, i) => {
+        t.classList.toggle('active', i === tab);
+      });
+    }
+
+    function updateCard() {
+      const select = document.getElementById('toolSelect');
+      const selected = select.options[select.selectedIndex];
+      document.getElementById('cardEmoji').textContent = selected.textContent.split(' ')[0];
+      document.getElementById('cardName').textContent = selected.textContent.split(' ').slice(1).join(' ');
+      
+      // Simple description mapping (expand if needed)
+      const descs = {
+        "Topical Authority": "Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.",
+        "Entity Extractor": "Extracts named entities and helps optimize for modern entity-based search engines.",
+        "SEO Intent": "Classifies search intent behind keywords and suggests better content alignment.",
+        "Local SEO": "Evaluates local pack visibility, citations, and Google Business Profile health.",
+        "Product SEO": "Optimizes product pages for e-commerce search visibility and conversions.",
+        "Schema Generator": "Generates structured data markup to improve rich results in search engines.",
+        "AI Search Optimization": "Prepares content for AI Overviews and generative search results.",
+        "AI Voice Search": "Optimizes for conversational and voice-based search queries.",
+        "AI Content": "Audits AI-generated content for quality, originality, and SEO value.",
+        "Quit Risk": "Predicts pages at risk of losing rankings and suggests recovery actions.",
+        "SEO + UX Audit": "Combined SEO and user experience health score with actionable fixes.",
+        "Keyword Research": "Discovers high-potential keywords with volume, difficulty, and opportunity scores.",
+        "Keyword Placement": "Analyzes optimal keyword placement across page elements.",
+        "Competition (VS)": "Compares your site against competitors on keyword and content gaps."
+      };
+      document.getElementById('cardDesc').textContent = descs[selected.textContent.split(' ').slice(1).join(' ')] || "Educational deep-dive tool from Traffic Torch.";
+    }
+
     function launchTool() {
       let url = document.getElementById('urlInput').value.trim();
       if (!url) url = "yoursite.com";
@@ -68,6 +135,11 @@
       window.parent.postMessage({ type: 'LAUNCH_TOOL', toolBase: toolBase, siteUrl: url }, '*');
       window.open(fullUrl, '_blank');
     }
+
+    // Initialize
+    window.onload = () => {
+      updateCard();
+    };
   </script>
 </body>
 </html>
