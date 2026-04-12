@@ -2,7 +2,7 @@
 
 **Instant 360° SEO, UX, GEO & AI health analysis directly inside Figma.**
 
-Educational plugin that brings the full power of [traffictorch.net](https://traffictorch.net) into your design workflow — no more switching tabs.
+Educational plugin that brings the full power of [traffictorch.net](https://traffictorch.net) into your design workflow.
 
 ### Features
 - Clean tabbed interface (Welcome, All Tools, Help Guides)
@@ -11,7 +11,7 @@ Educational plugin that brings the full power of [traffictorch.net](https://traf
 - Always-visible green Launch button with loading state
 - Dark/light mode support (gray-800 / dark-gray-200 text + #10b981 accent)
 - Mobile-friendly layout inside the 420px modal
-- Built with latest 2026 Figma Plugin API + plain HTML for maximum reliability
+- Built with latest Figma Plugin API + plain HTML for maximum reliability
 
 ### Included Tools (exact match to traffictorch.net)
 - ⚜️ Topical Authority

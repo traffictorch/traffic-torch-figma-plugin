@@ -1,5 +1,6 @@
 {
   "name": "Traffic Torch UX AI GEO & SEO Tools for Figma",
+  "id": "1624971170654319802",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "ui.html",
