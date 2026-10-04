@@ -1,6 +1,5 @@
 {
-  "name": "Traffic Torch SEO Toolkit",
-  "id": "1624971170654319802",
+  "name": "Traffic Torch AI SEO Toolkit",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "ui.html",

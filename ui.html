@@ -19,8 +19,6 @@
     button:disabled { background:#9ca3af; cursor:not-allowed; }
     .card { background:#f8fafc; padding:18px; border-radius:20px; margin:20px 0; border:1px solid #e2e8f0; }
     .dark .card { background:#1f2937; border-color:#374151; }
-    .tooltip { background:#fef3c7; color:#92400e; padding:14px; border-radius:12px; font-size:13px; margin:12px 0; display:none; }
-    .dark .tooltip { background:#451a03; color:#fcd34d; }
   </style>
 </head>
 <body>
@@ -28,7 +26,7 @@
     <div style="font-size:32px">🚥</div>
     <div>
       <h1>Traffic Torch</h1>
-      <p style="margin:0; font-size:13px; opacity:0.7;">AI SEO & UX Tools</p>
+      <p style="margin:0; font-size:13px; opacity:0.7;">AI SEO Toolkit</p>
     </div>
   </div>
 
@@ -42,6 +40,7 @@
   <div id="panel-0">
     <label style="display:block; font-size:13px; margin-bottom:6px; font-weight:500;">Select Tool</label>
     <select id="toolSelect" onchange="updateCard()">
+      <option value="https://traffictorch.net/">📈 NUSA Tool</option>
       <option value="https://traffictorch.net/topical-authority-audit-tool/">⚜️ Topical Authority</option>
       <option value="https://traffictorch.net/seo-entity-extractor-tool/">🧬 Entity Extractor</option>
       <option value="https://traffictorch.net/seo-intent-tool/">🎯 SEO Intent</option>
@@ -52,7 +51,9 @@
       <option value="https://traffictorch.net/ai-voice-search-tool/">🎙️ AI Voice Search</option>
       <option value="https://traffictorch.net/ai-audit-tool/">🤖 AI Content</option>
       <option value="https://traffictorch.net/quit-risk-tool/">⚡ Quit Risk</option>
-      <option value="https://traffictorch.net/">⚖️ SEO + UX Audit</option>
+      <option value="https://traffictorch.net/seo-ux-tool/">⚖️ SEO + UX</option>
+      <option value="https://traffictorch.net/lighthouse-plus-tool/">🗼 Lighthouse Plus</option>
+      <option value="https://traffictorch.net/aeo-performance-tool/">🚀 AEO Performance</option>
       <option value="https://traffictorch.net/keyword-research-tool/">🔑 Keyword Research</option>
       <option value="https://traffictorch.net/keyword-tool/">📝 Keyword Placement</option>
       <option value="https://traffictorch.net/keyword-vs-tool/">🆚 Competition (VS)</option>
@@ -60,10 +61,10 @@
 
     <div id="toolCard" class="card">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-        <span id="cardEmoji" style="font-size:24px">⚜️</span>
-        <strong id="cardName">Topical Authority</strong>
+        <span id="cardEmoji" style="font-size:24px">📈</span>
+        <strong id="cardName">NUSA Tool</strong>
       </div>
-      <p id="cardDesc" style="font-size:13px; opacity:0.8;">Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.</p>
+      <p id="cardDesc" style="font-size:13px; opacity:0.8;">NUSA scores your User Experience, Search Visibility and AI Search Readiness in under 60 seconds. Free, browser-based audit with instant fixes.</p>
     </div>
 
     <label style="display:block; font-size:13px; margin:16px 0 6px; font-weight:500;">Site URL</label>
@@ -76,7 +77,7 @@
   <div id="panel-1" style="display:none; text-align:center; padding:40px 20px;">
     <div style="font-size:64px; margin-bottom:20px">🚥</div>
     <h2 style="font-size:22px; margin-bottom:12px;">Welcome to Traffic Torch</h2>
-    <p style="max-width:280px; margin:0 auto; font-size:14px; opacity:0.8;">Instant 360° SEO, UX, GEO and AI health analysis for your live websites.</p>
+    <p style="max-width:280px; margin:0 auto; font-size:14px; opacity:0.8;">Instant 360° SEO, UX, GEO and AI health analysis for your live websites. All tools now include CMS-specific fixes and Ask AI.</p>
     <button onclick="switchTab(0)" style="margin-top:32px;">Start Analyzing →</button>
   </div>
 
@@ -92,7 +93,6 @@
       document.getElementById('panel-0').style.display = tab === 0 ? 'block' : 'none';
       document.getElementById('panel-1').style.display = tab === 1 ? 'block' : 'none';
       document.getElementById('panel-2').style.display = tab === 2 ? 'block' : 'none';
-
       document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === tab));
     }
 
@@ -103,22 +103,25 @@
       document.getElementById('cardName').textContent = option.textContent.split(' ').slice(1).join(' ');
       
       const descMap = {
+        "NUSA Tool": "NUSA scores your User Experience, Search Visibility and AI Search Readiness in under 60 seconds. Free, browser-based audit with instant fixes.",
         "Topical Authority": "Analyzes content clusters, gaps, and authority signals to help you build stronger topical relevance.",
         "Entity Extractor": "Extracts named entities and helps optimize for modern entity-based search engines.",
         "SEO Intent": "Classifies search intent behind keywords and suggests better content alignment.",
         "Local SEO": "Evaluates local pack visibility, citations, and Google Business Profile health.",
         "Product SEO": "Optimizes product pages for e-commerce search visibility and conversions.",
-        "Schema Generator": "Generates structured data markup to improve rich results in search engines.",
+        "Schema Generator": "Generates and validates structured data markup. Now accepts HTML input.",
         "AI Search Optimization": "Prepares content for AI Overviews and generative search results.",
         "AI Voice Search": "Optimizes for conversational and voice-based search queries.",
         "AI Content": "Audits AI-generated content for quality, originality, and SEO value.",
         "Quit Risk": "Predicts pages at risk of losing rankings and suggests recovery actions.",
-        "SEO + UX Audit": "Combined SEO and user experience health score with actionable fixes.",
+        "SEO + UX": "Combined SEO and user experience health score with actionable fixes.",
+        "Lighthouse Plus": "Lighthouse Plus audit for Core Web Vitals, Accessibility, Best Practices, SEO On-Page, PWA, Resources, Third-Party Impact, Mobile UX, and Agentic Browsing.",
+        "AEO Performance": "Audit how well AI crawlers and answer engines can crawl, render, parse, extract, and trust your page. Free AEO performance analysis with CMS-specific fixes.",
         "Keyword Research": "Discovers high-potential keywords with volume, difficulty, and opportunity scores.",
         "Keyword Placement": "Analyzes optimal keyword placement across page elements.",
         "Competition (VS)": "Compares your site against competitors on keyword and content gaps."
       };
-      document.getElementById('cardDesc').textContent = descMap[option.textContent.split(' ').slice(1).join(' ')] || "Educational deep-dive tool from Traffic Torch.";
+      document.getElementById('cardDesc').textContent = descMap[option.textContent.split(' ').slice(1).join(' ')] || "Educational deep-dive tool from Traffic Torch with CMS-specific fixes and Ask AI.";
     }
 
     function launchTool() {
@@ -131,22 +134,18 @@
       if (!url) url = "yoursite.com";
 
       const toolBase = document.getElementById('toolSelect').value;
-      const fullUrl = toolBase + '?url=' + encodeURIComponent(url);
+      const fullUrl = toolBase + (toolBase.endsWith('/') ? '' : '/') + '?url=' + encodeURIComponent(url);
 
       window.parent.postMessage({ type: 'LAUNCH_TOOL', toolBase: toolBase, siteUrl: url }, '*');
       window.open(fullUrl, '_blank');
 
-      // Reset button after a short delay
       setTimeout(() => {
         btn.textContent = originalText;
         btn.disabled = false;
       }, 1500);
     }
 
-    // Initialize
-    window.onload = () => {
-      updateCard();
-    };
+    window.onload = () => { updateCard(); };
   </script>
 </body>
 </html>

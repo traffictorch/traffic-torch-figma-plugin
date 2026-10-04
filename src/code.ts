@@ -6,9 +6,9 @@ figma.showUI(__html__, {
 
 figma.ui.onmessage = function(msg) {
   if (msg.type === 'LAUNCH_TOOL') {
-    const toolBase = msg.toolBase;
-    const siteUrl = msg.siteUrl || 'yoursite.com';
-    const fullUrl = toolBase + '?url=' + encodeURIComponent(siteUrl);
+    var toolBase = msg.toolBase;
+    var siteUrl = msg.siteUrl || 'yoursite.com';
+    var fullUrl = toolBase + (toolBase.endsWith('/') ? '' : '/') + '?url=' + encodeURIComponent(siteUrl);
     figma.openExternal(fullUrl);
     figma.notify('🚀 Opening Traffic Torch tool… Educational & instant!', { timeout: 2000 });
   }
